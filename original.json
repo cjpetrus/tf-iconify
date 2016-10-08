@@ -1,0 +1,100 @@
+
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] module.bastion.aws_instance.bastion" [label = "aws_instance.bastion", shape = "box"]
+		"[root] module.bastion.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.consul.aws_instance.consul" [label = "aws_instance.consul", shape = "box"]
+		"[root] module.consul.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.dhcp.aws_vpc_dhcp_options.dns_resolver" [label = "aws_vpc_dhcp_options.dns_resolver", shape = "box"]
+		"[root] module.dhcp.aws_vpc_dhcp_options_association.dns_resolver" [label = "aws_vpc_dhcp_options_association.dns_resolver", shape = "box"]
+		"[root] module.dhcp.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.dns.aws_route53_zone.main" [label = "aws_route53_zone.main", shape = "box"]
+		"[root] module.dns.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.iam_role.aws_iam_instance_profile.default_ecs" [label = "aws_iam_instance_profile.default_ecs", shape = "box"]
+		"[root] module.iam_role.aws_iam_role.default_ecs_role" [label = "aws_iam_role.default_ecs_role", shape = "box"]
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_instance_role_policy" [label = "aws_iam_role_policy.default_ecs_instance_role_policy", shape = "box"]
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_service_role_policy" [label = "aws_iam_role_policy.default_ecs_service_role_policy", shape = "box"]
+		"[root] module.iam_role.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.security_groups.aws_security_group.external_elb" [label = "aws_security_group.external_elb", shape = "box"]
+		"[root] module.security_groups.aws_security_group.external_ssh" [label = "aws_security_group.external_ssh", shape = "box"]
+		"[root] module.security_groups.aws_security_group.internal_elb" [label = "aws_security_group.internal_elb", shape = "box"]
+		"[root] module.security_groups.aws_security_group.internal_ssh" [label = "aws_security_group.internal_ssh", shape = "box"]
+		"[root] module.security_groups.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] module.vpc.aws_eip.nat" [label = "aws_eip.nat", shape = "box"]
+		"[root] module.vpc.aws_internet_gateway.main" [label = "aws_internet_gateway.main", shape = "box"]
+		"[root] module.vpc.aws_nat_gateway.main" [label = "aws_nat_gateway.main", shape = "box"]
+		"[root] module.vpc.aws_route_table.external" [label = "aws_route_table.external", shape = "box"]
+		"[root] module.vpc.aws_route_table.internal" [label = "aws_route_table.internal", shape = "box"]
+		"[root] module.vpc.aws_route_table_association.external" [label = "aws_route_table_association.external", shape = "box"]
+		"[root] module.vpc.aws_route_table_association.internal" [label = "aws_route_table_association.internal", shape = "box"]
+		"[root] module.vpc.aws_subnet.external" [label = "aws_subnet.external", shape = "box"]
+		"[root] module.vpc.aws_subnet.internal" [label = "aws_subnet.internal", shape = "box"]
+		"[root] module.vpc.aws_vpc.main" [label = "aws_vpc.main", shape = "box"]
+		"[root] module.vpc.provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] provider.aws (disabled)" [label = "provider.aws (disabled)", shape = "diamond"]
+		"[root] module.bastion.aws_instance.bastion" -> "[root] module.bastion.provider.aws"
+		"[root] module.bastion.aws_instance.bastion" -> "[root] module.security_groups.aws_security_group.external_ssh"
+		"[root] module.bastion.aws_instance.bastion" -> "[root] module.security_groups.aws_security_group.internal_ssh"
+		"[root] module.bastion.aws_instance.bastion" -> "[root] module.vpc.aws_subnet.external"
+		"[root] module.bastion.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.consul.aws_instance.consul" -> "[root] module.consul.provider.aws"
+		"[root] module.consul.aws_instance.consul" -> "[root] module.security_groups.aws_security_group.external_ssh"
+		"[root] module.consul.aws_instance.consul" -> "[root] module.security_groups.aws_security_group.internal_ssh"
+		"[root] module.consul.aws_instance.consul" -> "[root] module.vpc.aws_subnet.internal"
+		"[root] module.consul.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.dhcp.aws_vpc_dhcp_options.dns_resolver" -> "[root] module.dhcp.provider.aws"
+		"[root] module.dhcp.aws_vpc_dhcp_options_association.dns_resolver" -> "[root] module.dhcp.aws_vpc_dhcp_options.dns_resolver"
+		"[root] module.dhcp.aws_vpc_dhcp_options_association.dns_resolver" -> "[root] module.dhcp.provider.aws"
+		"[root] module.dhcp.aws_vpc_dhcp_options_association.dns_resolver" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.dhcp.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.dns.aws_route53_zone.main" -> "[root] module.dns.provider.aws"
+		"[root] module.dns.aws_route53_zone.main" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.dns.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.iam_role.aws_iam_instance_profile.default_ecs" -> "[root] module.iam_role.aws_iam_role.default_ecs_role"
+		"[root] module.iam_role.aws_iam_instance_profile.default_ecs" -> "[root] module.iam_role.provider.aws"
+		"[root] module.iam_role.aws_iam_role.default_ecs_role" -> "[root] module.iam_role.provider.aws"
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_instance_role_policy" -> "[root] module.iam_role.aws_iam_role.default_ecs_role"
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_instance_role_policy" -> "[root] module.iam_role.provider.aws"
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_service_role_policy" -> "[root] module.iam_role.aws_iam_role.default_ecs_role"
+		"[root] module.iam_role.aws_iam_role_policy.default_ecs_service_role_policy" -> "[root] module.iam_role.provider.aws"
+		"[root] module.iam_role.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.security_groups.aws_security_group.external_elb" -> "[root] module.security_groups.provider.aws"
+		"[root] module.security_groups.aws_security_group.external_elb" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.security_groups.aws_security_group.external_ssh" -> "[root] module.security_groups.provider.aws"
+		"[root] module.security_groups.aws_security_group.external_ssh" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.security_groups.aws_security_group.internal_elb" -> "[root] module.security_groups.provider.aws"
+		"[root] module.security_groups.aws_security_group.internal_elb" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.security_groups.aws_security_group.internal_ssh" -> "[root] module.security_groups.aws_security_group.external_ssh"
+		"[root] module.security_groups.aws_security_group.internal_ssh" -> "[root] module.security_groups.provider.aws"
+		"[root] module.security_groups.aws_security_group.internal_ssh" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.security_groups.provider.aws" -> "[root] provider.aws (disabled)"
+		"[root] module.vpc.aws_eip.nat" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_internet_gateway.main" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.vpc.aws_internet_gateway.main" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_nat_gateway.main" -> "[root] module.vpc.aws_eip.nat"
+		"[root] module.vpc.aws_nat_gateway.main" -> "[root] module.vpc.aws_internet_gateway.main"
+		"[root] module.vpc.aws_nat_gateway.main" -> "[root] module.vpc.aws_subnet.external"
+		"[root] module.vpc.aws_nat_gateway.main" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_route_table.external" -> "[root] module.vpc.aws_internet_gateway.main"
+		"[root] module.vpc.aws_route_table.external" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.vpc.aws_route_table.external" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_route_table.internal" -> "[root] module.vpc.aws_nat_gateway.main"
+		"[root] module.vpc.aws_route_table.internal" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.vpc.aws_route_table.internal" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_route_table_association.external" -> "[root] module.vpc.aws_route_table.external"
+		"[root] module.vpc.aws_route_table_association.external" -> "[root] module.vpc.aws_subnet.external"
+		"[root] module.vpc.aws_route_table_association.external" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_route_table_association.internal" -> "[root] module.vpc.aws_route_table.internal"
+		"[root] module.vpc.aws_route_table_association.internal" -> "[root] module.vpc.aws_subnet.internal"
+		"[root] module.vpc.aws_route_table_association.internal" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_subnet.external" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.vpc.aws_subnet.external" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_subnet.internal" -> "[root] module.vpc.aws_vpc.main"
+		"[root] module.vpc.aws_subnet.internal" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.aws_vpc.main" -> "[root] module.vpc.provider.aws"
+		"[root] module.vpc.provider.aws" -> "[root] provider.aws (disabled)"
+	}
+}
+
